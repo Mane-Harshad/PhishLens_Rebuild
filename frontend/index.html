@@ -1,10 +1,10 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101827">
-  <title>PhishLens â€” URL Security Workbench</title>
+  <title>PhishLens - URL Security Workbench</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -13,13 +13,13 @@
     <a class="brand" href="/"><span class="brand-icon">P</span><span><b>PhishLens</b><small>URL SECURITY WORKBENCH</small></span></a>
     <div class="nav-label">WORKSPACE</div>
     <nav>
-      <button class="nav-item active" data-view="scanner"><span>â—Ž</span> URL scanner <kbd>01</kbd></button>
-      <button class="nav-item" data-view="bulk"><span>â–¤</span> Bulk analysis <kbd>02</kbd></button>
-      <button class="nav-item" data-view="compare"><span>â‡„</span> Domain comparison <kbd>03</kbd></button>
-      <button class="nav-item" data-view="history"><span>â—·</span> Scan history <kbd>04</kbd></button>
+      <button class="nav-item active" data-view="scanner"><span>URL</span> URL scanner <kbd>01</kbd></button>
+      <button class="nav-item" data-view="bulk"><span>BULK</span> Bulk analysis <kbd>02</kbd></button>
+      <button class="nav-item" data-view="compare"><span>VS</span> Domain comparison <kbd>03</kbd></button>
+      <button class="nav-item" data-view="history"><span>LOG</span> Scan history <kbd>04</kbd></button>
     </nav>
     <div class="sidebar-bottom">
-      <div class="status-card"><div class="status-heading"><i id="health-dot"></i> SERVER ANALYSIS</div><p>URL analysis runs through the deployed machine-learning model. This app does not visit submitted URLs.</p><div id="health-text">Checking modelâ€¦</div></div>
+      <div class="status-card"><div class="status-heading"><i id="health-dot"></i> SERVER ANALYSIS</div><p>URL analysis runs through the deployed machine-learning model. This app does not visit submitted URLs.</p><div id="health-text">Checking model...</div></div>
       <small class="side-foot">PHISHLENS / ML SCREENING TOOL</small>
     </div>
   </aside>
@@ -32,14 +32,14 @@
           <section class="panel">
             <div class="panel-head"><b><em>01</em> NEW INSPECTION</b><span>HTTP / HTTPS</span></div>
             <label for="url-input">URL TO INSPECT</label>
-            <div class="url-entry"><input id="url-input" maxlength="4096" placeholder="https://example.com/sign-in" autocomplete="url" spellcheck="false"><button class="primary" id="scan-button">Analyze URL <span>â†—</span></button></div>
+            <div class="url-entry"><input id="url-input" maxlength="4096" placeholder="https://example.com/sign-in" autocomplete="url" spellcheck="false"><button class="primary" id="scan-button">Analyze URL <span>-&gt;</span></button></div>
             <div class="input-meta"><span>Include the full URL, starting with http:// or https://</span><span id="input-count">0 / 4096</span></div>
-            <div class="inline-row"><label class="check"><input type="checkbox" id="save-scan"> Save this scan to local history</label><span>Optional Â· stored on this computer</span></div>
+            <div class="inline-row"><label class="check"><input type="checkbox" id="save-scan"> Save this scan to scan history</label><span>Optional | stored in scan history</span></div>
             <div id="scan-error" class="error hidden" role="alert"></div>
           </section>
           <section class="panel hidden" id="result-panel" aria-live="polite">
             <div class="panel-head"><b><em>02</em> ANALYSIS REPORT</b><span id="result-time"></span></div>
-            <div class="verdict"><div id="verdict-icon" class="verdict-icon">!</div><div class="verdict-main"><div class="eyebrow">MODEL VERDICT</div><h2 id="verdict-title">Potential phishing</h2><div id="verdict-host" class="mono"></div></div><div class="score"><small>MODEL PHISHING SCORE</small><strong><span id="score-value">â€”</span><i>%</i></strong><div class="meter"><span id="score-fill"></span></div></div></div>
+            <div class="verdict"><div id="verdict-icon" class="verdict-icon">!</div><div class="verdict-main"><div class="eyebrow">MODEL VERDICT</div><h2 id="verdict-title">Potential phishing</h2><div id="verdict-host" class="mono"></div></div><div class="score"><small>MODEL PHISHING SCORE</small><strong><span id="score-value">-</span><i>%</i></strong><div class="meter"><span id="score-fill"></span></div></div></div>
             <p id="verdict-note" class="notice"></p>
             <div class="section-head"><div><div class="eyebrow">URL BREAKDOWN</div><h3>Visible indicators</h3></div><span id="indicator-count" class="count"></span></div>
             <div id="indicator-grid" class="indicator-grid"></div>
@@ -47,28 +47,28 @@
           </section>
         </div>
         <aside class="stack">
-          <section class="panel"><div class="panel-head"><b>HOW TO READ THIS</b><span>â“˜</span></div>
+          <section class="panel"><div class="panel-head"><b>HOW TO READ THIS</b><span>i</span></div>
             <div class="guide"><b>01</b><div><strong>Model verdict</strong><p>A learned classification, not proof a site is malicious or safe.</p></div></div>
             <div class="guide"><b>02</b><div><strong>Model score</strong><p>The model's phishing-class output; not a calibrated real-world probability.</p></div></div>
             <div class="guide"><b>03</b><div><strong>URL signals</strong><p>Context to help inspect the link. Individual signals can appear on legitimate sites.</p></div></div>
           </section>
           <section class="panel safety"><div class="safety-symbol">!</div><div><h3>Before you sign in</h3><p>Check the registered domain yourself. Avoid entering passwords, payment details, or one-time codes when unsure.</p></div></section>
-          <section class="panel model-card"><div class="panel-head"><b>MODEL STATUS</b><span id="model-live">CHECKING</span></div><strong id="model-name">Production model</strong><p>Existing trained artifact Â· local inference</p></section>
+          <section class="panel model-card"><div class="panel-head"><b>MODEL STATUS</b><span id="model-live">CHECKING</span></div><strong id="model-name">Production model</strong><p>Existing trained model | server-side inference</p></section>
         </aside>
       </div>
     </section>
     <section class="view" id="view-bulk">
       <div class="page-head"><div><div class="eyebrow">BATCH WORKFLOW / 02</div><h1>Bulk analysis<span>.</span></h1><p>Screen up to 100 links in one run and export a reviewable CSV.</p></div></div>
-      <section class="panel"><div class="panel-head"><b>BATCH INPUT</b><span>UP TO 100 URLS</span></div><label for="bulk-input">ONE URL PER LINE</label><textarea id="bulk-input" rows="9" placeholder="https://example.com&#10;https://another-example.org/login" spellcheck="false"></textarea><div class="inline-row controls"><label class="check"><input type="checkbox" id="bulk-save"> Save successful scans to history</label><button class="primary" id="bulk-button">Analyze list â†—</button></div><div id="bulk-error" class="error hidden"></div></section>
+      <section class="panel"><div class="panel-head"><b>BATCH INPUT</b><span>UP TO 100 URLS</span></div><label for="bulk-input">ONE URL PER LINE</label><textarea id="bulk-input" rows="9" placeholder="https://example.com&#10;https://another-example.org/login" spellcheck="false"></textarea><div class="inline-row controls"><label class="check"><input type="checkbox" id="bulk-save"> Save successful scans to history</label><button class="primary" id="bulk-button">Analyze list -&gt;</button></div><div id="bulk-error" class="error hidden"></div></section>
       <section class="panel hidden" id="bulk-results-panel"><div class="section-head"><div><div class="eyebrow">BATCH OUTPUT</div><h3>Scan results</h3></div><button class="secondary" id="bulk-export">Export CSV</button></div><div id="bulk-summary" class="summary"></div><div class="table-wrap"><table><thead><tr><th>URL</th><th>VERDICT</th><th>MODEL SCORE</th></tr></thead><tbody id="bulk-results"></tbody></table></div><div id="bulk-failures" class="failure"></div></section>
     </section>
     <section class="view" id="view-compare">
       <div class="page-head"><div><div class="eyebrow">DOMAIN INSPECTION / 03</div><h1>Domain comparison<span>.</span></h1><p>Compare hostname spelling to spot possible lookalikes. Similarity is only a clue.</p></div></div>
-      <section class="panel"><div class="panel-head"><b>HOSTNAME COMPARATOR</b><span>HEURISTIC ONLY</span></div><div class="compare-inputs"><div><label for="compare-a">REFERENCE URL / DOMAIN</label><input id="compare-a" placeholder="https://paypal.com" spellcheck="false"></div><div class="versus">VS</div><div><label for="compare-b">URL / DOMAIN TO CHECK</label><input id="compare-b" placeholder="https://paypaI.com" spellcheck="false"></div></div><button class="primary" id="compare-button">Compare hostnames â†—</button><div id="compare-error" class="error hidden"></div><div id="compare-result" class="compare-result hidden"></div><p class="fine-print">This compares text only. It does not check ownership, registration date, certificates, reputation, or live website content.</p></section>
+      <section class="panel"><div class="panel-head"><b>HOSTNAME COMPARATOR</b><span>HEURISTIC ONLY</span></div><div class="compare-inputs"><div><label for="compare-a">REFERENCE URL / DOMAIN</label><input id="compare-a" placeholder="https://paypal.com" spellcheck="false"></div><div class="versus">VS</div><div><label for="compare-b">URL / DOMAIN TO CHECK</label><input id="compare-b" placeholder="https://paypaI.com" spellcheck="false"></div></div><button class="primary" id="compare-button">Compare hostnames -&gt;</button><div id="compare-error" class="error hidden"></div><div id="compare-result" class="compare-result hidden"></div><p class="fine-print">This compares text only. It does not check ownership, registration date, certificates, reputation, or live website content.</p></section>
     </section>
     <section class="view" id="view-history">
-      <div class="page-head"><div><div class="eyebrow">LOCAL RECORDS / 04</div><h1>Scan history<span>.</span></h1><p>Review scans you explicitly chose to save on this computer.</p></div><div class="history-actions"><a class="secondary link-button" href="/api/history.csv">Export CSV</a><button id="clear-history" class="quiet danger">Clear history</button></div></div>
-      <section class="panel"><div class="history-toolbar"><strong id="history-count">Loading saved scansâ€¦</strong><input id="history-search" placeholder="Search URL or hostnameâ€¦" aria-label="Search history"></div><div class="table-wrap" id="history-table-wrap"><table><thead><tr><th>URL / HOSTNAME</th><th>VERDICT</th><th>MODEL SCORE</th><th>SCANNED AT</th></tr></thead><tbody id="history-results"></tbody></table></div><div id="history-empty" class="empty hidden"><h3>No saved scans yet</h3><p>Choose â€œSave this scan to local historyâ€ when scanning a URL.</p></div></section>
+      <div class="page-head"><div><div class="eyebrow">SCAN HISTORY / 04</div><h1>Scan history<span>.</span></h1><p>Review scans you explicitly chose to save to scan history.</p></div><div class="history-actions"><a class="secondary link-button" href="/api/history.csv">Export CSV</a><button id="clear-history" class="quiet danger">Clear history</button></div></div>
+      <section class="panel"><div class="history-toolbar"><strong id="history-count">Loading saved scans...</strong><input id="history-search" placeholder="Search URL or hostname..." aria-label="Search history"></div><div class="table-wrap" id="history-table-wrap"><table><thead><tr><th>URL / HOSTNAME</th><th>VERDICT</th><th>MODEL SCORE</th><th>SCANNED AT</th></tr></thead><tbody id="history-results"></tbody></table></div><div id="history-empty" class="empty hidden"><h3>No saved scans yet</h3><p>Enable &quot;Save this scan to scan history&quot; when scanning a URL.</p></div></section>
     </section>
     <footer><span>PHISHLENS / URL SCREENING</span><span>Machine-learning output is advisory. Verify important links independently.</span></footer>
   </main>
