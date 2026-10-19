@@ -23,7 +23,20 @@
     </div>
   </aside>
   <main>
-    <header class="topbar"><div>Workspace <span>/</span> <b id="crumb">URL scanner</b></div><div class="local-tag"><i></i> CLOUD INSTANCE</div></header>
+    
+<header class="topbar">
+  <div>Workspace <span>/</span> <b id="crumb">URL scanner</b></div>
+  <div class="topbar-actions">
+    <button id="theme-toggle" class="theme-toggle"
+            type="button" aria-label="Switch to light mode"
+            aria-pressed="false">
+      <span id="theme-icon" aria-hidden="true">☀</span>
+      <span id="theme-label">Light mode</span>
+    </button>
+    <div class="local-tag"><i></i> CLOUD INSTANCE</div>
+  </div>
+</header>
+
     <section class="view active" id="view-scanner">
       <div class="page-head"><div><div class="eyebrow">THREAT INSPECTION / 01</div><h1>URL scanner<span>.</span></h1><p>Inspect a link before you trust it. Review the model verdict and visible URL signals.</p></div><div class="head-mark">MODEL-POWERED<br>URL SCREENING</div></div>
       <div class="columns">

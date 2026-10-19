@@ -81,3 +81,56 @@ function renderHistory(){
 $("#history-search").addEventListener("input",renderHistory);
 $("#clear-history").addEventListener("click",async()=>{if(!confirm("Delete all saved scan history? This cannot be undone."))return;try{await api("/api/history",{method:"DELETE"});state.history=[];renderHistory();toast("History cleared.");}catch(e){toast(e.message);}});
 health();
+
+/* PhishLens theme toggle */
+(() => {
+  const root = document.documentElement;
+  const toggle = document.getElementById("theme-toggle");
+  const icon = document.getElementById("theme-icon");
+  const label = document.getElementById("theme-label");
+
+  if (!toggle || !icon || !label) return;
+
+  const storageKey = "phishlens-theme";
+
+  function applyTheme(theme) {
+    const isLight = theme === "light";
+
+    root.dataset.theme = isLight ? "light" : "dark";
+    icon.textContent = isLight ? "☾" : "☀";
+    label.textContent = isLight ? "Dark mode" : "Light mode";
+
+    toggle.setAttribute(
+      "aria-label",
+      isLight ? "Switch to dark mode" : "Switch to light mode"
+    );
+
+    toggle.setAttribute("aria-pressed", String(isLight));
+  }
+
+  let savedTheme = "dark";
+
+  try {
+    const stored = localStorage.getItem(storageKey);
+    if (stored === "light" || stored === "dark") {
+      savedTheme = stored;
+    }
+  } catch (_) {
+    // Theme switching still works if browser storage is unavailable.
+  }
+
+  applyTheme(savedTheme);
+
+  toggle.addEventListener("click", () => {
+    const nextTheme =
+      root.dataset.theme === "light" ? "dark" : "light";
+
+    applyTheme(nextTheme);
+
+    try {
+      localStorage.setItem(storageKey, nextTheme);
+    } catch (_) {
+      // The selected theme remains active until the page is closed.
+    }
+  });
+})();
